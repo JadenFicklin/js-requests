@@ -177,17 +177,22 @@ document.getElementById("query-button").addEventListener("click", attachQuery);
 
 // CODE HERE
 
-//post creates something(like a new user)
+// post creates something(like a new user)
 
-function postFunction() {
-  axios
-    .post("url goes here", { name: "jaden" })
-    .then((response) => {
-      //code that does something with response.data
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+function createFood(event) {
+  event.preventDefault();
+  const foodInput = document.getElementById("foody");
+  console.log(foodInput.value);
+  const body = {
+    newFood: foodInput.value,
+  };
+  axios.post("http://localhost:3000/food", body).then((res) => {
+    newFoods = document.createElement("p");
+    newFoods.textContent = res.data;
+    document.body.appendChild(newFoods);
+
+    console.log(res.data);
+  });
 }
 
-// document.querySelector("form").addEventListener("click", postFunction);
+document.querySelector("form").addEventListener("submit", createFood);
